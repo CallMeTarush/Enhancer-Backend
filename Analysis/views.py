@@ -46,6 +46,8 @@ def AccessUserMarkPage(request):
         body = json.loads(body_unicode)
         reg_no = body['reg_no']
         
+        qs = MainPageViews.objects.filter(reg_no=reg_no)
+        
         if(qs):
             print(qs.values('timestamps'))            
             new_timestamps = str(model_to_dict(qs[0])['timestamps']).split(',')
@@ -62,12 +64,10 @@ def AccessUserMarkPage(request):
 def AccessUserMainPage(request):
     if(request.method == "POST"):
 
-        
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
         reg_no = body['reg_no']
         
-
         qs = MainPageViews.objects.filter(reg_no=reg_no)
         
         if(qs):
