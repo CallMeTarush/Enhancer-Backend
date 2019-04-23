@@ -19,8 +19,11 @@ def getTimeStamp():
 @csrf_exempt
 def AccessUserCoursePage(request):
     if(request.method == "POST"):
-        print(request.body.decode('utf-8'))
-        reg_no = request.POST.get('reg_no')
+        
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        reg_no = body['reg_no']
+        
         qs = CoursePageViews.objects.filter(reg_no=reg_no)
         
         if(qs):
@@ -38,10 +41,11 @@ def AccessUserCoursePage(request):
 @csrf_exempt
 def AccessUserMarkPage(request):
     if(request.method == "POST"):
-        print(request.POST)
-        reg_no = request.POST.get('reg_no')
-        qs = MarkPageViews.objects.filter(reg_no=reg_no)
-        print(reg_no)
+        
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        reg_no = body['reg_no']
+        
         if(qs):
             print(qs.values('timestamps'))            
             new_timestamps = str(model_to_dict(qs[0])['timestamps']).split(',')
@@ -58,7 +62,12 @@ def AccessUserMarkPage(request):
 def AccessUserMainPage(request):
     if(request.method == "POST"):
 
-        reg_no = request.POST.get('reg_no')
+        
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        reg_no = body['reg_no']
+        
+
         qs = MainPageViews.objects.filter(reg_no=reg_no)
         
         if(qs):
