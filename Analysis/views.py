@@ -46,7 +46,7 @@ def AccessUserMarkPage(request):
         body = json.loads(body_unicode)
         reg_no = body['reg_no']
         
-        qs = MainPageViews.objects.filter(reg_no=reg_no)
+        qs = MarkPageViews.objects.filter(reg_no=reg_no)
         
         if(qs):
             print(qs.values('timestamps'))            
